@@ -44,11 +44,26 @@ RENT_MENU() {
         echo "$BIKE_ID) $SIZE\" $TYPE Bike"
       done
     # ask for bike to rent
-
+     echo -e "\nWhich one would you like to rent?"
+    read BIKE_ID_TO_RENT 
     # if input is not a number
 
+      if [[ ! $BIKE_ID_TO_RENT =~ ^[0-9]+$ ]]
+      then
     # send to main menu
-
+      MAIN_MENU "That is not a valid bike number."
+      else
+        #get bike availability
+        BIKE_AVAILABILITY=$($PSQL "SELECT available FROM bikes WHERE bike_id = $BIKE_ID_TO_RENT AND available = true")
+        #This line used to testing purposes only (testing the query)
+        #echo "$BIKE_AVAILABILITY"
+        #if not available
+        if [[ -z $BIKE_AVAILABILITY ]]
+        then
+        #send to main menu
+        MAIN_MENU "That bike is not available."
+        fi
+      fi
   fi
 }
 
