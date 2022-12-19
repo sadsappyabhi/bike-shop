@@ -40,7 +40,8 @@ RENT_MENU() {
     #bar refers to the | symbol in the psql output - this reads them into variables but then omits them when printing
     echo "$AVAILABLE_BIKES" | while read BIKE_ID BAR TYPE BAR SIZE
       do
-        echo "$BIKE_ID $TYPE $SIZE"
+        #Formats the output to '1) 27" Mountain Bike' from '1 Mountain 27'
+        echo "$BIKE_ID) $SIZE\" $TYPE Bike"
       done
     # ask for bike to rent
 
